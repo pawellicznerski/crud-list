@@ -11,6 +11,6 @@ const initialUsers =()=> (
         }
       }
     )//end of then
-)//end of initialUsers
+)
 
 export default initialUsers;

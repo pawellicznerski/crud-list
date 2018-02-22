@@ -1,8 +1,10 @@
-import { createStore, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import {createLogger} from 'redux-logger';
 import { syncHistoryWithStore} from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory'
 import rootReducer from './reducers/index';
-import initialUsers from './data/initial-users';
+import thunk from 'redux-thunk';
+// import initialUsers from './data/initial-users';
 
 const browserHistory = createBrowserHistory();
 // import the root reducer
@@ -10,10 +12,10 @@ const browserHistory = createBrowserHistory();
 
 // create an object for the default data
 const defaultState = {
-  users:initialUsers
+  users:''
 };
-
-const store = createStore(rootReducer, defaultState);
+const middleware = applyMiddleware(createLogger(),thunk)
+const store = createStore(rootReducer, defaultState,middleware);
 
 export const history = syncHistoryWithStore(browserHistory, store);
 

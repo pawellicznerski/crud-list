@@ -7,13 +7,29 @@ export function changeUser(index,userName,userEmail) {
   }
 }
 
-// export function changeEmail(index,userName,userEmail) {
-//   return {
-//     type: 'CHANGE_EMAIL',
-//     userName,
-//     userEmail
-//   }
-// }
+export function fetchIntialData(data) {
+  console.log('dupa');
+  return {
+    type: 'FETCH_INITIAL-DATA',
+    data: new Promise((resolve,reject)=>{
+      fetch('https://jsonplaceholder.typicode.com/users').then(resp => resp.json())
+             .then(data => {
+                 if(data.length!==0){
+                   console.log('action-creators',data);
+                   resolve(data);
+                 } else if (data.length===0){
+                   console.log("Failed to download data from server");
+                 }
+               })
+             })
+    }
+  // dispatch => {
+        // dispatch({
+        //   type: 'FETCH_DATA',
+        //   data:data,
+        // })
+  // }
+}
 
 // add comment
 export function addUser(userId, userName,userEmail) {

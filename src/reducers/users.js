@@ -38,7 +38,11 @@ function users(state = [], action) {
         {...state[action.index], follows: state[action.index].follows + 1},
         ...state.slice(action.index + 1), // after the one we are updatings
       ]
-
+    case 'FETCH_INITIAL-DATA' :
+      console.log("Incrementing Follows!!");
+      return [
+        ...action.data
+      ]
     default:
       return state;
   }
