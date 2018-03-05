@@ -4,35 +4,37 @@ import TableHeader from './__table__header/table__header.js';
 import TableItem from './__table__item/table__item.js';
 
 export default class Table extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      data:this.props.data,
-    }
-  }
+  // constructor(props){
+  //   super(props);
+  //   this.state={
+  //     data:this.props.data,
+  //   }
+  // }
 
   componentWillMount() {
-    const initialData = fetch('https://jsonplaceholder.typicode.com/users').then(resp => resp.json())
-      .then(data => {
-          if(data.length!==0){
-            return data;
-          } else if (data.length===0){
-            console.log("Failed to download data from server");
-          }
-        }
-      )
-      console.log('initialData:',initialData);
-      this.setState({
-        data:initialData
-      })
-      console.log(this.state.data);
+    this.props.fetchInitialData();
+    // const initialData = fetch('https://jsonplaceholder.typicode.com/users').then(resp => resp.json())
+    //   .then(data => {
+    //       if(data.length!==0){
+    //         return data;
+    //       } else if (data.length===0){
+    //         console.log("Failed to download data from server");
+    //       }
+    //     }
+    //   )
+    //   console.log('initialData:',initialData);
+    //   this.setState({
+    //     data:initialData
+    //   })
+    //   console.log(this.state.data);
   }
-  deleteUser(id){
-    this.props.deleteUser(id);
+  deleteUser(id,index){
+    this.props.deleteUser(id,index);
   }
 
   renderItems() {
-      return _.map(this.props.data, (item, index) => <TableItem key={index} {...item} index={index} deleteUser={this.deleteUser.bind(this)} classType={index%2===0?"table-body__row_even":"table-body__row_odd"}/>);
+    const {users} = this.props;
+      return _.map(users, (item, index) => <TableItem key={index} {...item} index={index} deleteUser={this.deleteUser.bind(this)} classType={index%2===0?"table-body__row_even":"table-body__row_odd"}/>);
   }
 
   sortTable(itemId){
@@ -40,6 +42,7 @@ export default class Table extends Component {
   }
 
   render() {
+    console.log("props in table:",this.props);
       return (
           <table className="table-main">
               <TableHeader

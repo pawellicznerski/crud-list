@@ -16,9 +16,10 @@ export default class Toolbar extends Component {
   }
 //CWP in case removing elemts from the list which is executed in form but needs info in Toolbar--------
   componentWillReceiveProps(nextProps) {
-    if(nextProps.data.length < 10){
-      this.setState({warning:nextProps.warning,showForm:!nextProps.warning})
-    }
+    // if(nextProps.data.length < 10){
+    //   this.setState({warning:nextProps.warning,showForm:!nextProps.warning})
+    // }
+    // console.log("toolbar-initial-data:",nextProps);
   }
 // the function handles showing warnings and clear button-------------------
   showComment(){
@@ -130,7 +131,7 @@ export default class Toolbar extends Component {
 
   render(){
     // const listIsFull= this.props.data.length>=10;
-    console.log("this in toolbar:",this);
+    // console.log("this in toolbar:",this);
     if(this.state.showForm){
       return (
         <div
